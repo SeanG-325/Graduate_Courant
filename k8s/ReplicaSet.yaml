@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: hw4-d1
+  labels:
+    app: hw4-d1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: hw4-d1
+  template:
+    metadata:
+      labels:
+        tier: hw4-d1
+    spec:
+        containers:
+        - name: seanguan-hw4
+          image: seanguan/seanguan-hw4
+          imagePullPolicy: Always

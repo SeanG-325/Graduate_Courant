@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hw4-s-statefulset
+  labels:
+    app: hw4-d2
+spec:
+  type: NodePort
+  ports:
+  - port: 5000
+    targetPort: 5000
+    name: hw4-s-statefulset
+  selector:
+    app: hw4-d2
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: hw4-d2
+  labels:
+    app: hw4-d2
+spec:
+  serviceName:  "hw4-s-statefulset"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hw4-d2
+  template:
+    metadata:
+      labels:
+        app: hw4-d2
+    spec:
+      containers:
+      - name: seanguan-hw4
+        image: seanguan/seanguan-hw4
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
